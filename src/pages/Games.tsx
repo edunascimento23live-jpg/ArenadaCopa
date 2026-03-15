@@ -88,7 +88,7 @@ const Games: React.FC = () => {
 
                       <div className="flex items-center justify-between gap-4 mb-8">
                         <div className="flex-1 text-center flex flex-col items-center gap-3">
-                          <img src={getFlagUrl(game.time_a) || ''} alt="" className="w-12 h-8 object-cover rounded-md border border-white/10 shadow-lg" referrerPolicy="no-referrer" />
+                          <img src={getFlagUrl(game.time_a) || undefined} alt="" className="w-12 h-8 object-cover rounded-md border border-white/10 shadow-lg" referrerPolicy="no-referrer" />
                           <div className="text-lg font-black uppercase italic tracking-tighter">{game.time_a}</div>
                         </div>
                         
@@ -102,7 +102,7 @@ const Games: React.FC = () => {
                         </div>
 
                         <div className="flex-1 text-center flex flex-col items-center gap-3">
-                          <img src={getFlagUrl(game.time_b) || ''} alt="" className="w-12 h-8 object-cover rounded-md border border-white/10 shadow-lg" referrerPolicy="no-referrer" />
+                          <img src={getFlagUrl(game.time_b) || undefined} alt="" className="w-12 h-8 object-cover rounded-md border border-white/10 shadow-lg" referrerPolicy="no-referrer" />
                           <div className="text-lg font-black uppercase italic tracking-tighter">{game.time_b}</div>
                         </div>
                       </div>

@@ -75,7 +75,7 @@ const Standings: React.FC = () => {
                           <div className="flex items-center gap-4 flex-1">
                             <span className={`w-6 text-sm font-black ${idx < 2 ? 'text-yellow-500' : 'text-zinc-600'}`}>{idx + 1}</span>
                             <div className="flex items-center gap-3">
-                              <img src={getFlagUrl(team.time) || ''} alt="" className="w-6 h-4 object-cover rounded-sm border border-white/10" referrerPolicy="no-referrer" />
+                              <img src={getFlagUrl(team.time) || undefined} alt="" className="w-6 h-4 object-cover rounded-sm border border-white/10" referrerPolicy="no-referrer" />
                               <span className="font-bold">{team.time}</span>
                             </div>
                           </div>

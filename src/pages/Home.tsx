@@ -169,12 +169,12 @@ const Home: React.FC = () => {
                   <span className="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-4">{game.fase}</span>
                   <div className="flex items-center justify-center gap-4 mb-6">
                     <div className="flex flex-col items-center gap-2">
-                      <img src={getFlagUrl(game.time_a) || ''} alt="" className="w-10 h-7 object-cover rounded-sm border border-white/10" referrerPolicy="no-referrer" />
+                      <img src={getFlagUrl(game.time_a) || undefined} alt="" className="w-10 h-7 object-cover rounded-sm border border-white/10" referrerPolicy="no-referrer" />
                       <span className="font-bold text-sm line-clamp-1">{game.time_a}</span>
                     </div>
                     <span className="text-zinc-600 font-black italic">VS</span>
                     <div className="flex flex-col items-center gap-2">
-                      <img src={getFlagUrl(game.time_b) || ''} alt="" className="w-10 h-7 object-cover rounded-sm border border-white/10" referrerPolicy="no-referrer" />
+                      <img src={getFlagUrl(game.time_b) || undefined} alt="" className="w-10 h-7 object-cover rounded-sm border border-white/10" referrerPolicy="no-referrer" />
                       <span className="font-bold text-sm line-clamp-1">{game.time_b}</span>
                     </div>
                   </div>
@@ -231,7 +231,7 @@ const Home: React.FC = () => {
                 >
                   <div className="bg-zinc-950 border border-white/5 rounded-2xl p-6 flex items-center justify-between h-full">
                     <div className="flex items-center gap-4 flex-1">
-                      <img src={getFlagUrl(game.time_a) || ''} alt="" className="w-8 h-5 object-cover rounded-sm border border-white/10" referrerPolicy="no-referrer" />
+                      <img src={getFlagUrl(game.time_a) || undefined} alt="" className="w-8 h-5 object-cover rounded-sm border border-white/10" referrerPolicy="no-referrer" />
                       <span className="font-bold text-lg line-clamp-1">{game.time_a}</span>
                       <div className="w-10 h-10 bg-zinc-900 rounded-lg flex items-center justify-center text-xl font-black text-yellow-500 ml-auto">{game.gols_a}</div>
                     </div>
@@ -239,7 +239,7 @@ const Home: React.FC = () => {
                     <div className="flex items-center gap-4 flex-1 justify-end">
                       <div className="w-10 h-10 bg-zinc-900 rounded-lg flex items-center justify-center text-xl font-black text-yellow-500 mr-auto">{game.gols_b}</div>
                       <span className="font-bold text-lg line-clamp-1">{game.time_b}</span>
-                      <img src={getFlagUrl(game.time_b) || ''} alt="" className="w-8 h-5 object-cover rounded-sm border border-white/10" referrerPolicy="no-referrer" />
+                      <img src={getFlagUrl(game.time_b) || undefined} alt="" className="w-8 h-5 object-cover rounded-sm border border-white/10" referrerPolicy="no-referrer" />
                     </div>
                   </div>
                 </div>

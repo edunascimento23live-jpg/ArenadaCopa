@@ -63,7 +63,7 @@ const GameDetails: React.FC = () => {
                     <motion.img 
                       initial={{ scale: 0.8 }}
                       animate={{ scale: 1 }}
-                      src={getFlagUrl(game.time_a) || ''} 
+                      src={getFlagUrl(game.time_a) || undefined} 
                       alt="" 
                       className="w-24 h-16 md:w-32 md:h-20 object-cover rounded-xl border border-white/10 shadow-2xl" 
                       referrerPolicy="no-referrer" 
@@ -84,7 +84,7 @@ const GameDetails: React.FC = () => {
                     <motion.img 
                       initial={{ scale: 0.8 }}
                       animate={{ scale: 1 }}
-                      src={getFlagUrl(game.time_b) || ''} 
+                      src={getFlagUrl(game.time_b) || undefined} 
                       alt="" 
                       className="w-24 h-16 md:w-32 md:h-20 object-cover rounded-xl border border-white/10 shadow-2xl" 
                       referrerPolicy="no-referrer" 
@@ -128,7 +128,7 @@ const GameDetails: React.FC = () => {
                   {/* Home Team Lineup */}
                   <div className="space-y-6">
                     <div className="flex items-center gap-3">
-                      <img src={getFlagUrl(game.time_a) || ''} alt="" className="w-8 h-5 object-cover rounded-sm border border-white/10" referrerPolicy="no-referrer" />
+                      <img src={getFlagUrl(game.time_a) || undefined} alt="" className="w-8 h-5 object-cover rounded-sm border border-white/10" referrerPolicy="no-referrer" />
                       <h4 className="text-lg font-black uppercase italic tracking-tighter text-yellow-500">{game.time_a}</h4>
                     </div>
                     {game.homeLineup ? (
@@ -143,7 +143,7 @@ const GameDetails: React.FC = () => {
                   {/* Away Team Lineup */}
                   <div className="space-y-6">
                     <div className="flex items-center gap-3">
-                      <img src={getFlagUrl(game.time_b) || ''} alt="" className="w-8 h-5 object-cover rounded-sm border border-white/10" referrerPolicy="no-referrer" />
+                      <img src={getFlagUrl(game.time_b) || undefined} alt="" className="w-8 h-5 object-cover rounded-sm border border-white/10" referrerPolicy="no-referrer" />
                       <h4 className="text-lg font-black uppercase italic tracking-tighter text-white">{game.time_b}</h4>
                     </div>
                     {game.awayLineup ? (

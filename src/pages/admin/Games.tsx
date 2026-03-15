@@ -115,13 +115,13 @@ const AdminGames: React.FC = () => {
                   <div className="flex items-center gap-4">
                     <div className="flex items-center gap-2 min-w-[120px] justify-end">
                       <span className="font-bold text-sm">{game.time_a}</span>
-                      <img src={getFlagUrl(game.time_a) || ''} alt="" className="w-6 h-4 object-cover rounded-sm border border-white/10" referrerPolicy="no-referrer" />
+                      <img src={getFlagUrl(game.time_a) || undefined} alt="" className="w-6 h-4 object-cover rounded-sm border border-white/10" referrerPolicy="no-referrer" />
                     </div>
                     <span className="text-yellow-500 font-black px-2 bg-white/5 rounded">
                       {game.status === 'finished' ? `${game.gols_a} x ${game.gols_b}` : 'vs'}
                     </span>
                     <div className="flex items-center gap-2 min-w-[120px]">
-                      <img src={getFlagUrl(game.time_b) || ''} alt="" className="w-6 h-4 object-cover rounded-sm border border-white/10" referrerPolicy="no-referrer" />
+                      <img src={getFlagUrl(game.time_b) || undefined} alt="" className="w-6 h-4 object-cover rounded-sm border border-white/10" referrerPolicy="no-referrer" />
                       <span className="font-bold text-sm">{game.time_b}</span>
                     </div>
                   </div>
@@ -181,7 +181,7 @@ const AdminGames: React.FC = () => {
                   <div className="space-y-2">
                     <label className="text-xs font-bold text-zinc-500 uppercase tracking-widest">Time A</label>
                     <div className="flex items-center gap-3">
-                      <img src={getFlagUrl(formData.time_a) || ''} alt="" className="w-8 h-5 object-cover rounded-sm border border-white/10" referrerPolicy="no-referrer" />
+                      <img src={getFlagUrl(formData.time_a) || undefined} alt="" className="w-8 h-5 object-cover rounded-sm border border-white/10" referrerPolicy="no-referrer" />
                       <input
                         required
                         type="text"
@@ -194,7 +194,7 @@ const AdminGames: React.FC = () => {
                   <div className="space-y-2">
                     <label className="text-xs font-bold text-zinc-500 uppercase tracking-widest">Time B</label>
                     <div className="flex items-center gap-3">
-                      <img src={getFlagUrl(formData.time_b) || ''} alt="" className="w-8 h-5 object-cover rounded-sm border border-white/10" referrerPolicy="no-referrer" />
+                      <img src={getFlagUrl(formData.time_b) || undefined} alt="" className="w-8 h-5 object-cover rounded-sm border border-white/10" referrerPolicy="no-referrer" />
                       <input
                         required
                         type="text"

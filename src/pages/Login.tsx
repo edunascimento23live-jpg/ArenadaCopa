@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { Trophy, LogIn, Mail, Lock } from 'lucide-react';
 import { useAuth } from '../AuthContext';
-import { loginWithEmail, loginWithGoogle } from '../firebase';
+import { loginWithEmail, loginWithGoogle, registerWithEmail } from '../firebase';
 
 const Login: React.FC = () => {
   const { user, loading } = useAuth();
@@ -11,6 +11,7 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isRegistering, setIsRegistering] = useState(false);
 
   if (loading) return null;
   if (user) return <Navigate to="/admin" />;
@@ -20,9 +21,21 @@ const Login: React.FC = () => {
     setError('');
     setIsSubmitting(true);
     try {
-      await loginWithEmail(email, password);
+      if (isRegistering) {
+        await registerWithEmail(email, password);
+      } else {
+        await loginWithEmail(email, password);
+      }
     } catch (err: any) {
-      setError('E-mail ou senha incorretos. Verifique suas credenciais.');
+      let message = 'Erro ao processar solicitação.';
+      if (err.code === 'auth/user-not-found') message = 'Usuário não encontrado.';
+      if (err.code === 'auth/wrong-password') message = 'Senha incorreta.';
+      if (err.code === 'auth/email-already-in-use') message = 'Este e-mail já está em uso.';
+      if (err.code === 'auth/weak-password') message = 'A senha deve ter pelo menos 6 caracteres.';
+      if (err.code === 'auth/operation-not-allowed') message = 'Login por e-mail/senha não está ativado no Firebase.';
+      if (err.code === 'auth/invalid-credential') message = 'Credenciais inválidas.';
+      
+      setError(message);
       console.error(err);
     } finally {
       setIsSubmitting(false);
@@ -41,10 +54,10 @@ const Login: React.FC = () => {
             <Trophy className="w-10 h-10 text-yellow-500" />
           </div>
           <h1 className="text-3xl font-black uppercase italic tracking-tighter mb-2">
-            Acesso <span className="text-yellow-500">Restrito</span>
+            {isRegistering ? 'Criar' : 'Acesso'} <span className="text-yellow-500">{isRegistering ? 'Conta' : 'Restrito'}</span>
           </h1>
           <p className="text-zinc-400 text-sm">
-            Área exclusiva para administradores da Arena da Copa.
+            {isRegistering ? 'Crie sua conta de administrador.' : 'Área exclusiva para administradores da Arena da Copa.'}
           </p>
         </div>
 
@@ -94,9 +107,18 @@ const Login: React.FC = () => {
             disabled={isSubmitting}
             className="w-full flex items-center justify-center gap-3 py-4 px-6 bg-yellow-500 text-zinc-950 font-black uppercase italic tracking-tighter rounded-2xl hover:bg-yellow-400 transition-all active:scale-95 disabled:opacity-50"
           >
-            {isSubmitting ? 'Autenticando...' : 'Entrar no Painel'}
+            {isSubmitting ? 'Processando...' : (isRegistering ? 'Criar Conta' : 'Entrar no Painel')}
           </button>
         </form>
+
+        <div className="mt-6 text-center">
+          <button
+            onClick={() => setIsRegistering(!isRegistering)}
+            className="text-xs text-zinc-500 hover:text-yellow-500 transition-colors font-bold uppercase tracking-widest"
+          >
+            {isRegistering ? 'Já tenho conta? Entrar' : 'Não tem conta? Criar agora'}
+          </button>
+        </div>
 
         <div className="mt-8 pt-8 border-t border-white/5 text-center">
           <button
