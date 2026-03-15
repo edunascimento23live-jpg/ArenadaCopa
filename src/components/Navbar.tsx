@@ -56,12 +56,7 @@ const Navbar: React.FC = () => {
             <button className="p-2 text-zinc-400 hover:text-white transition-colors">
               <Search className="w-5 h-5" />
             </button>
-            {isAdmin && (
-              <Link to="/admin" className="p-2 text-zinc-400 hover:text-yellow-500 transition-colors" title="Painel Admin">
-                <Settings className="w-5 h-5" />
-              </Link>
-            )}
-            {user ? (
+            {user && (
               <button
                 onClick={() => logout()}
                 className="flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-900 border border-white/10 text-sm font-medium hover:bg-zinc-800 transition-colors"
@@ -69,14 +64,6 @@ const Navbar: React.FC = () => {
                 <LogOut className="w-4 h-4" />
                 Sair
               </button>
-            ) : (
-              <Link
-                to="/login"
-                className="flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-500 text-zinc-950 text-sm font-bold hover:bg-yellow-400 transition-colors"
-              >
-                <User className="w-4 h-4" />
-                Entrar
-              </Link>
             )}
           </div>
 
@@ -116,16 +103,7 @@ const Navbar: React.FC = () => {
                   {link.name}
                 </Link>
               ))}
-              {isAdmin && (
-                <Link
-                  to="/admin"
-                  onClick={() => setIsOpen(false)}
-                  className="block px-3 py-2 rounded-md text-base font-medium text-zinc-300 hover:text-yellow-500"
-                >
-                  Painel Admin
-                </Link>
-              )}
-              {user ? (
+              {user && (
                 <button
                   onClick={() => {
                     logout();
@@ -135,14 +113,6 @@ const Navbar: React.FC = () => {
                 >
                   Sair
                 </button>
-              ) : (
-                <Link
-                  to="/login"
-                  onClick={() => setIsOpen(false)}
-                  className="block px-3 py-2 rounded-md text-base font-medium text-yellow-500"
-                >
-                  Entrar
-                </Link>
               )}
             </div>
           </motion.div>
