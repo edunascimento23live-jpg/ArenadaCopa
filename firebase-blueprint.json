@@ -1,0 +1,83 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "Products available in the store",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Product name" },
+        "description": { "type": "string", "description": "Product description" },
+        "price": { "type": "number", "description": "Product price" },
+        "image": { "type": "string", "description": "Product image URL" },
+        "link_checkout": { "type": "string", "description": "External checkout link" },
+        "stock": { "type": "integer", "description": "Available stock" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation date" }
+      },
+      "required": ["name", "price", "link_checkout"]
+    },
+    "News": {
+      "title": "News",
+      "description": "News articles about the World Cup",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "News title" },
+        "content": { "type": "string", "description": "News content" },
+        "image": { "type": "string", "description": "News image URL" },
+        "author": { "type": "string", "description": "News author" },
+        "date": { "type": "string", "format": "date-time", "description": "Publication date" }
+      },
+      "required": ["title", "content"]
+    },
+    "Game": {
+      "title": "Game",
+      "description": "World Cup matches",
+      "type": "object",
+      "properties": {
+        "time_a": { "type": "string", "description": "Team A name" },
+        "time_b": { "type": "string", "description": "Team B name" },
+        "data": { "type": "string", "description": "Match date" },
+        "hora": { "type": "string", "description": "Match time" },
+        "estadio": { "type": "string", "description": "Stadium name" },
+        "fase": { "type": "string", "description": "Tournament phase" },
+        "gols_a": { "type": "integer", "description": "Goals for Team A" },
+        "gols_b": { "type": "integer", "description": "Goals for Team B" },
+        "status": { "type": "string", "enum": ["scheduled", "finished"], "description": "Match status" },
+        "homeLineup": { "type": "string", "description": "Lineup for Team A" },
+        "awayLineup": { "type": "string", "description": "Lineup for Team B" }
+      },
+      "required": ["time_a", "time_b", "data", "hora"]
+    },
+    "GroupStanding": {
+      "title": "Group Standing",
+      "description": "Classification of teams in groups",
+      "type": "object",
+      "properties": {
+        "grupo": { "type": "string", "description": "Group name (e.g., A, B, C)" },
+        "time": { "type": "string", "description": "Team name" },
+        "pontos": { "type": "integer", "description": "Total points" },
+        "vitorias": { "type": "integer", "description": "Total wins" },
+        "empates": { "type": "integer", "description": "Total draws" },
+        "derrotas": { "type": "integer", "description": "Total losses" },
+        "saldo": { "type": "integer", "description": "Goal difference" }
+      },
+      "required": ["grupo", "time"]
+    },
+    "User": {
+      "title": "User",
+      "description": "Application users",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "description": "User email" },
+        "role": { "type": "string", "enum": ["admin", "user"], "description": "User role" }
+      },
+      "required": ["email", "role"]
+    }
+  },
+  "firestore": {
+    "products": { "schema": "Product", "description": "Collection of products" },
+    "news": { "schema": "News", "description": "Collection of news articles" },
+    "games": { "schema": "Game", "description": "Collection of matches" },
+    "group_standings": { "schema": "GroupStanding", "description": "Collection of group classifications" },
+    "users": { "schema": "User", "description": "Collection of users" }
+  }
+}

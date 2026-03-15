@@ -1,0 +1,101 @@
+// ===============================================================
+// Assumed Data Model
+// ===============================================================
+//
+// Collection: products
+// Fields: name, description, price, image, link_checkout, stock, createdAt
+//
+// Collection: news
+// Fields: title, content, image, author, date
+//
+// Collection: games
+// Fields: time_a, time_b, data, hora, estadio, fase, gols_a, gols_b, status, homeLineup, awayLineup
+//
+// Collection: group_standings
+// Fields: grupo, time, pontos, vitorias, empates, derrotas, saldo
+//
+// Collection: users
+// Fields: email, role
+//
+// ===============================================================
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() &&
+        request.auth.token.email == "edunascimento23live@gmail.com" && 
+        request.auth.token.email_verified == true;
+    }
+
+    function isValidProduct(data) {
+      return data.name is string && data.name.size() > 0 && data.name.size() < 200 &&
+             data.price is number && data.price >= 0 &&
+             data.link_checkout is string && data.link_checkout.size() > 0;
+    }
+
+    function isValidNews(data) {
+      return data.title is string && data.title.size() > 0 && data.title.size() < 300 &&
+             data.content is string && data.content.size() > 0 && data.content.size() < 50000;
+    }
+
+    function isValidGame(data) {
+      return data.time_a is string && data.time_a.size() < 100 &&
+             data.time_b is string && data.time_b.size() < 100 &&
+             data.data is string && data.data.size() < 50 &&
+             data.hora is string && data.hora.size() < 50 &&
+             (!('homeLineup' in data) || (data.homeLineup is string && data.homeLineup.size() < 5000)) &&
+             (!('awayLineup' in data) || (data.awayLineup is string && data.awayLineup.size() < 5000));
+    }
+
+    function isValidStanding(data) {
+      return data.grupo is string && data.time is string &&
+             data.pontos is int && data.vitorias is int &&
+             data.empates is int && data.derrotas is int &&
+             data.saldo is int;
+    }
+
+    // ===============================================================
+    // Rules
+    // ===============================================================
+
+    match /products/{productId} {
+      allow read: if true;
+      allow create, update: if isAdmin() && isValidProduct(request.resource.data);
+      allow delete: if isAdmin();
+    }
+
+    match /news/{newsId} {
+      allow read: if true;
+      allow create, update: if isAdmin() && isValidNews(request.resource.data);
+      allow delete: if isAdmin();
+    }
+
+    match /games/{gameId} {
+      allow read: if true;
+      allow create, update: if isAdmin() && isValidGame(request.resource.data);
+      allow delete: if isAdmin();
+    }
+
+    match /group_standings/{standingId} {
+      allow read: if true;
+      allow create, update: if isAdmin() && isValidStanding(request.resource.data);
+      allow delete: if isAdmin();
+    }
+
+    match /users/{userId} {
+      allow read: if isAuthenticated() && (request.auth.uid == userId || isAdmin());
+      allow create: if isAuthenticated() && request.auth.uid == userId && request.resource.data.role == 'user';
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+  }
+}
